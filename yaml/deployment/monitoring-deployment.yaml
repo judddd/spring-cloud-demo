@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: monitoring
+  namespace: springcloud
+  labels:
+    name: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        name: monitoring
+  template:
+    metadata:
+      labels:
+        name: monitoring
+    spec:
+      terminationGracePeriodSeconds: 120
+      containers:
+      - name: monitoring
+        image: sqshq/piggymetrics-monitoring
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: CONFIG_SERVICE_PASSWORD
+          value: admin

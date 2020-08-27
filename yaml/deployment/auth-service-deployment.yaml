@@ -1,0 +1,34 @@
+apiVersion:  apps/v1
+kind: Deployment
+metadata:
+  name: auth-service
+  namespace: springcloud
+  labels:
+    name: auth-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+        name: auth-service
+  template:
+    metadata:
+      labels:
+        name: auth-service
+    spec:
+      terminationGracePeriodSeconds: 120
+      containers:
+      - name: auth-service
+        image: sqshq/piggymetrics-auth-service
+        imagePullPolicy: IfNotPresent
+        env:
+          - name: CONFIG_SERVICE_PASSWORD
+            value: admin
+          - name: NOTIFICATION_SERVICE_PASSWORD
+            value: admin
+          - name: STATISTICS_SERVICE_PASSWORD
+            value: admin
+          - name: ACCOUNT_SERVICE_PASSWORD
+            value: admin
+          - name: MONGODB_PASSWORD
+            value: admin
+
